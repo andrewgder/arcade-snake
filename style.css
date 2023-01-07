@@ -4,3 +4,44 @@ body {
   font-family: "Noto Sans JP";
   text-align: center;
 }
+
+/* popup for instructions */
+.tooltip {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 500px;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  padding-bottom: 20px;
+  position: absolute;
+  z-index: 1;
+  border: 3px solid black;
+  top: 100%;
+  background-color: #ccdbdc;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
