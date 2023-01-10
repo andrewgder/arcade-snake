@@ -13,12 +13,11 @@ let score = 0;
 let highScore = 0;
 let playerScore = document.querySelector(".score");
 let playerHighScore = document.querySelector(".highScore");
-let playAgainButton = document.querySelector(".playAgain");
-
-//instructions popup
-function instructionsPopup() {
-  instructions.classList.toggle("show");
-}
+let playAgainDiv = document.querySelector(".controls");
+let playAgainButton = document.createElement("button");
+playAgainButton.innerText = "Play Again!";
+let gameOverScreen = document.querySelector(".gameOverOverlay");
+let gameOverText = document.querySelector(".gameOverText");
 
 //creates snake head starting point
 let snakeHeadWidth = squareSize * 10;
@@ -37,7 +36,7 @@ window.onload = function () {
   gameContext = gameBoard.getContext("2d");
   spawnFood();
   document.addEventListener("keyup", direction);
-  document.addEventListener("click", instructionsPopup);
+  highScore = localStorage.getItem("savedHighScore");
   //using interval to refresh the board
   setInterval(gameUpdate, 100);
 };
@@ -83,7 +82,7 @@ function gameUpdate() {
       squareSize
     );
   }
-
+  //Game over conditions
   // checks if snake goes out outside of canvas
   if (
     snakeHeadWidth < 0 ||
@@ -91,8 +90,12 @@ function gameUpdate() {
     snakeHeadHeight < 0 ||
     snakeHeadHeight >= rows * squareSize
   ) {
+    localStorage.setItem("savedhHighScore", highScore);
+    //creates overlay for game over screen with button
+    gameOverText.innerHTML = "Game Over! </br> Score: " + score + "</br>";
+    gameOverText.appendChild(playAgainButton);
+    gameOverScreen.style.display = "flex";
     gameOver = true;
-    alert("Game Over");
   }
 
   //checks if snake head hits its own body
@@ -101,8 +104,13 @@ function gameUpdate() {
       snakeHeadWidth == snakeBody[i][0] &&
       snakeHeadHeight == snakeBody[i][1]
     ) {
+      localStorage.setItem("savedhHighScore", highScore);
+      //creates overlay for game over screen with button
+      gameOverScreen.style.display = "flex";
+      gameOverText.innerHTML = "Game Over!  </br> Score: " + score + "</br>";
+      gameOverText.appendChild(playAgainButton);
+      gameOverScreen.style.display = "flex";
       gameOver = true;
-      alert("Game Over");
     }
   }
 }
@@ -136,5 +144,5 @@ function checkScore() {
 //play again function
 playAgainButton.addEventListener("click", playAgain);
 function playAgain() {
-  score = 0;
+  window.location.reload();
 }
