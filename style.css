@@ -3,6 +3,10 @@
 body {
   font-family: "Noto Sans JP";
   text-align: center;
+  background-color: #cecece;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* popup for instructions */
@@ -11,6 +15,15 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  background-color: #36454f;
+  color: #e5e5e5;
+  border-radius: 16px;
+  width: fit-content;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+button {
+  margin-left: 30px;
 }
 
 .tooltip .tooltiptext {
@@ -28,6 +41,7 @@ body {
   background-color: #ccdbdc;
   opacity: 0;
   transition: opacity 1s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .tooltip:hover .tooltiptext {
@@ -37,9 +51,21 @@ body {
 
 .stats {
   display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  width: 400px;
+  margin-bottom: 20px;
+  text-emphasis: bold;
+  color: #e5e5e5;
 }
+.score,
+.highScore {
+  background-color: #36454f;
+  border-radius: 16px;
+  padding: 5px;
+  opacity: 75%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .controls {
   display: flex;
   justify-content: center;

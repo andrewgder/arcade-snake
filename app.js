@@ -1,5 +1,5 @@
 // game variables
-const squareSize = 25;
+const squareSize = 20;
 const rows = 20;
 const cols = 20;
 let gameBoard;
