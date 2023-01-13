@@ -24,13 +24,14 @@ let gameInterval;
 //start game function
 startButton.addEventListener("click", start);
 function start() {
+  score = 0;
+  startButton.style.display = "none";
   gameBoard = document.querySelector("#board");
   gameBoard.height = rows * squareSize;
   gameBoard.width = cols * squareSize;
   gameContext = gameBoard.getContext("2d");
   spawnFood();
   document.addEventListener("keyup", direction);
-  highScore = localStorage.getItem("savedHighScore");
   startInterval();
 }
 //set interval
@@ -139,7 +140,7 @@ function direction(event) {
   } else if (event.code == "ArrowRight" && directionX != -1) {
     directionX = 1;
     directionY = 0;
-  } else {
+  } else if (event.code == null) {
     directionX = 0;
     directionY = 0;
   }
@@ -149,8 +150,6 @@ function direction(event) {
 function checkScore() {
   if (highScore <= score) {
     highScore = score;
-  } else {
-    highScore += 1;
   }
 }
 
@@ -166,7 +165,7 @@ function playAgain() {
   //stops from the page from redrawing the canvas
   stop();
   //resets the direction parameter
-  direction(" ");
+  direction("");
   gameOver = false;
   start();
 }
