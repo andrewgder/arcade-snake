@@ -83,7 +83,7 @@ function gameUpdate() {
     snakeBody[0] = [snakeHeadWidth, snakeHeadHeight];
   }
 
-  gameContext.fillStyle = "blue";
+  gameContext.fillStyle = "#C1CADE";
   snakeHeadWidth += directionX * squareSize;
   snakeHeadHeight += directionY * squareSize;
   gameContext.fillRect(snakeHeadWidth, snakeHeadHeight, squareSize, squareSize);
