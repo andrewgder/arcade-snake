@@ -102,7 +102,6 @@ function gameUpdate() {
     snakeHeadHeight < 0 ||
     snakeHeadHeight >= rows * squareSize
   ) {
-    localStorage.setItem("savedhHighScore", highScore);
     //creates overlay for game over screen with button
     gameOverText.innerHTML = "Game Over! </br> Score: " + score + "</br>";
     gameOverText.appendChild(playAgainButton);
@@ -116,7 +115,6 @@ function gameUpdate() {
       snakeHeadWidth == snakeBody[i][0] &&
       snakeHeadHeight == snakeBody[i][1]
     ) {
-      localStorage.setItem("savedhHighScore", highScore);
       //creates overlay for game over screen with button
       gameOverScreen.style.display = "flex";
       gameOverText.innerHTML = "Game Over!  </br> Score: " + score + "</br>";
@@ -160,12 +158,15 @@ function checkScore() {
 playAgainButton.addEventListener("click", playAgain);
 function playAgain() {
   gameOverScreen.style.display = "none";
+  //places snake head at starting position
   snakeHeadWidth = squareSize * 10;
   snakeHeadHeight = squareSize * 10;
-  document.addEventListener("reset", direction);
+  //resets snake body
+  snakeBody = [];
+  //stops from the page from redrawing the canvas
   stop();
+  //resets the direction parameter
   direction(" ");
   gameOver = false;
-  gameInterval = null;
   start();
 }
