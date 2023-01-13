@@ -18,6 +18,20 @@ let playAgainButton = document.createElement("button");
 playAgainButton.innerText = "Play Again!";
 let gameOverScreen = document.querySelector(".gameOverOverlay");
 let gameOverText = document.querySelector(".gameOverText");
+let startGame = document.querySelector("#startButton");
+//start game function
+document.addEventListener("click", start);
+function start() {
+  gameBoard = document.querySelector("#board");
+  gameBoard.height = rows * squareSize;
+  gameBoard.width = cols * squareSize;
+  gameContext = gameBoard.getContext("2d");
+  spawnFood();
+  document.addEventListener("keyup", direction);
+  highScore = localStorage.getItem("savedHighScore");
+  //using interval to refresh the board
+  setInterval(gameUpdate, 100);
+}
 
 //creates snake head starting point
 let snakeHeadWidth = squareSize * 10;
@@ -29,17 +43,17 @@ function spawnFood() {
   foodHeight = Math.floor(Math.random() * rows) * squareSize;
 }
 // draws board during page load and starts the game
-window.onload = function () {
-  gameBoard = document.querySelector("#board");
-  gameBoard.height = rows * squareSize;
-  gameBoard.width = cols * squareSize;
-  gameContext = gameBoard.getContext("2d");
-  spawnFood();
-  document.addEventListener("keyup", direction);
-  highScore = localStorage.getItem("savedHighScore");
-  //using interval to refresh the board
-  setInterval(gameUpdate, 100);
-};
+// window.onload = function () {
+//   gameBoard = document.querySelector("#board");
+//   gameBoard.height = rows * squareSize;
+//   gameBoard.width = cols * squareSize;
+//   gameContext = gameBoard.getContext("2d");
+//   spawnFood();
+//   document.addEventListener("keyup", direction);
+//   highScore = localStorage.getItem("savedHighScore");
+//   //using interval to refresh the board
+//   setInterval(gameUpdate, 100);
+// };
 
 // refreshes the game during gameplay
 function gameUpdate() {
@@ -145,4 +159,14 @@ function checkScore() {
 playAgainButton.addEventListener("click", playAgain);
 function playAgain() {
   window.location.reload();
+  //   clearInterval();
+  //   gameBoard = document.querySelector("#board");
+  //   gameBoard.height = rows * squareSize;
+  //   gameBoard.width = cols * squareSize;
+  //   gameContext = gameBoard.getContext("2d");
+  //   spawnFood();
+  //   document.addEventListener("keyup", direction);
+  //   highScore = localStorage.getItem("savedHighScore");
+  //   //using interval to refresh the board
+  //   setInterval(gameUpdate, 100);
 }
