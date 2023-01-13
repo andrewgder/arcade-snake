@@ -51,18 +51,6 @@ function spawnFood() {
   foodWidth = Math.floor(Math.random() * cols) * squareSize;
   foodHeight = Math.floor(Math.random() * rows) * squareSize;
 }
-// draws board during page load and starts the game
-// window.onload = function () {
-//   gameBoard = document.querySelector("#board");
-//   gameBoard.height = rows * squareSize;
-//   gameBoard.width = cols * squareSize;
-//   gameContext = gameBoard.getContext("2d");
-//   spawnFood();
-//   document.addEventListener("keyup", direction);
-//   highScore = localStorage.getItem("savedHighScore");
-//   //using interval to refresh the board
-//   setInterval(gameUpdate, 100);
-// };
 
 // refreshes the game during gameplay
 function gameUpdate() {
@@ -153,6 +141,9 @@ function direction(event) {
   } else if (event.code == "ArrowRight" && directionX != -1) {
     directionX = 1;
     directionY = 0;
+  } else {
+    directionX = 0;
+    directionY = 0;
   }
 }
 
@@ -171,7 +162,9 @@ function playAgain() {
   gameOverScreen.style.display = "none";
   snakeHeadWidth = squareSize * 10;
   snakeHeadHeight = squareSize * 10;
+  document.addEventListener("reset", direction);
   stop();
+  direction(" ");
   gameOver = false;
   gameInterval = null;
   start();
