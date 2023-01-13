@@ -18,9 +18,11 @@ let playAgainButton = document.createElement("button");
 playAgainButton.innerText = "Play Again!";
 let gameOverScreen = document.querySelector(".gameOverOverlay");
 let gameOverText = document.querySelector(".gameOverText");
-let startGame = document.querySelector("#startButton");
+let startButton = document.querySelector(".startButton");
+let gameInterval;
+
 //start game function
-document.addEventListener("click", start);
+startButton.addEventListener("click", start);
 function start() {
   gameBoard = document.querySelector("#board");
   gameBoard.height = rows * squareSize;
@@ -29,8 +31,15 @@ function start() {
   spawnFood();
   document.addEventListener("keyup", direction);
   highScore = localStorage.getItem("savedHighScore");
-  //using interval to refresh the board
-  setInterval(gameUpdate, 100);
+  startInterval();
+}
+//set interval
+function startInterval() {
+  gameInterval = setInterval(gameUpdate, 100);
+}
+//stops interval
+function stop() {
+  clearInterval(gameInterval);
 }
 
 //creates snake head starting point
@@ -62,9 +71,10 @@ function gameUpdate() {
   if (gameOver) {
     return;
   }
+  //draws board
   gameContext.fillStyle = "#2E2E2E";
   gameContext.fillRect(0, 0, gameBoard.width, gameBoard.height);
-
+  //draws food
   gameContext.fillStyle = "#FC2E20";
   gameContext.fillRect(foodWidth, foodHeight, squareSize, squareSize);
   //condition to check if snake eats the food
@@ -158,15 +168,11 @@ function checkScore() {
 //play again function
 playAgainButton.addEventListener("click", playAgain);
 function playAgain() {
-  window.location.reload();
-  //   clearInterval();
-  //   gameBoard = document.querySelector("#board");
-  //   gameBoard.height = rows * squareSize;
-  //   gameBoard.width = cols * squareSize;
-  //   gameContext = gameBoard.getContext("2d");
-  //   spawnFood();
-  //   document.addEventListener("keyup", direction);
-  //   highScore = localStorage.getItem("savedHighScore");
-  //   //using interval to refresh the board
-  //   setInterval(gameUpdate, 100);
+  gameOverScreen.style.display = "none";
+  snakeHeadWidth = squareSize * 10;
+  snakeHeadHeight = squareSize * 10;
+  stop();
+  gameOver = false;
+  gameInterval = null;
+  start();
 }
