@@ -19,11 +19,15 @@ playAgainButton.innerText = "Play Again!";
 let gameOverScreen = document.querySelector(".gameOverOverlay");
 let gameOverText = document.querySelector(".gameOverText");
 let startButton = document.querySelector(".startButton");
+let hardMode = document.querySelector(".toggle");
 let gameInterval;
+hardMode.style.display = "none";
+let hard = document.querySelector("#hard");
 
 //start game function
 startButton.addEventListener("click", start);
 function start() {
+  hardMode.style.display = "inline-block";
   score = 0;
   startButton.style.display = "none";
   gameBoard = document.querySelector("#board");
@@ -55,6 +59,11 @@ function spawnFood() {
 
 // refreshes the game during gameplay
 function gameUpdate() {
+  //check if hard mode is enabled
+  if (hard.checked == true) {
+    alert("test");
+    hard.checked = false;
+  }
   playerScore.innerHTML = "Score: " + score;
   playerHighScore.innerHTML = "High Score: " + highScore;
   if (gameOver) {
