@@ -22,6 +22,7 @@ let startButton = document.querySelector(".startButton");
 let hardMode = document.querySelector(".toggle");
 let gameInterval;
 hardMode.style.display = "none";
+//hardmode indicator
 let hard = document.querySelector("#hard");
 
 //start game function
@@ -36,11 +37,19 @@ function start() {
   gameContext = gameBoard.getContext("2d");
   spawnFood();
   document.addEventListener("keyup", direction);
-  startInterval();
+  if (hard.checked == false) {
+    startInterval(false);
+  } else {
+    startInterval(true);
+  }
 }
 //set interval
-function startInterval() {
-  gameInterval = setInterval(gameUpdate, 100);
+function startInterval(hard) {
+  if (hard == false) {
+    gameInterval = setInterval(gameUpdate, 100);
+  } else {
+    gameInterval = setInterval(gameUpdate, 60);
+  }
 }
 //stops interval
 function stop() {
@@ -59,11 +68,16 @@ function spawnFood() {
 
 // refreshes the game during gameplay
 function gameUpdate() {
-  //check if hard mode is enabled
-  if (hard.checked == true) {
-    alert("test");
-    hard.checked = false;
-  }
+  //listner to reset game based on difficulty
+  hard.addEventListener("change", function () {
+    if (this.checked) {
+      stop();
+      start();
+    } else {
+      stop();
+      start();
+    }
+  });
   playerScore.innerHTML = "Score: " + score;
   playerHighScore.innerHTML = "High Score: " + highScore;
   if (gameOver) {
@@ -155,7 +169,7 @@ function direction(event) {
   }
 }
 
-//check if score is the highest
+//check if score is the highest and sets high score
 function checkScore() {
   if (highScore <= score) {
     highScore = score;
